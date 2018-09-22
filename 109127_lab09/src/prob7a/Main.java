@@ -1,6 +1,8 @@
 package prob7a;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Main {
 
@@ -14,8 +16,13 @@ public class Main {
 		                  new Employee("Thomas", "Blake", 111000),
 		                  new Employee("Alice", "Richards", 101000),
 		                  new Employee("Donald", "Trump", 100000));
-		
-		//your stream pipeline here
+		System.out.println(list.stream()
+				.filter(x -> x.salary > 100000)
+				.filter(x -> x.lastName.charAt(0) > 'M')
+				.map(x -> x.firstName + " " + x.lastName)
+				.sorted()
+				.collect(Collectors.joining(", ")));
+					
 
 	}
 
