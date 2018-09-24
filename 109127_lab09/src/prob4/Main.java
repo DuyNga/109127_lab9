@@ -9,6 +9,7 @@ public class Main {
 	}
 
 	public static void main(String[] args) {
+		System.out.println("The method prints to the console the first num squares.");
 		printSquares(4);
 	}
 

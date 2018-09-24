@@ -42,7 +42,8 @@ public class PuttingIntoPractice{
         System.out.println("Find all traders from Cambridge and sort them by name.");
         System.out.println(transactions.stream()
 				.map(x -> x.getTrader())
-				.filter(x -> "Cambridge".equals(x.getCity()))
+				.filter(x -> "Cambridge".equalsIgnoreCase(x.getCity()))
+				.distinct()
 				.sorted((x, y) -> x.getName().compareToIgnoreCase(y.getName()))
 				.map(x -> x.toString())
 				.collect(Collectors.joining("\n")));
@@ -53,7 +54,7 @@ public class PuttingIntoPractice{
 				.map(x -> x.getTrader())
 				.distinct()
 				.sorted((x, y) -> x.getName().compareToIgnoreCase(y.getName()))
-				.map(x -> x.toString())
+				.map(x -> x.getName())
 				.collect(Collectors.joining("\n")));
         System.out.println("");
         
@@ -62,7 +63,7 @@ public class PuttingIntoPractice{
         System.out.println("Query 5: Are there any trader based in Milan?");
         System.out.println(transactions.stream()
 				.map(x -> x.getTrader())
-				.filter(x -> "Milan".equals(x.getCity()))
+				.filter(x -> "Milan".equalsIgnoreCase(x.getCity()))
 				.findAny()
 				.isPresent()? "Yes" : "No");
         System.out.println("");
@@ -74,7 +75,7 @@ public class PuttingIntoPractice{
 				.map(x -> x.getTrader())
 				.distinct()
 				.map(x -> {
-					if ("Milan".equals(x.getCity())) {
+					if ("Milan".equalsIgnoreCase(x.getCity())) {
 						x.setCity("Cambridge");
 						return x;
 					}
