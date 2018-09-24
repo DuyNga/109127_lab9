@@ -48,4 +48,48 @@ public class Dish {
                            new Dish("pizza", true, 550, Dish.Type.OTHER),
                            new Dish("prawns", false, 400, Dish.Type.FISH),
                            new Dish("salmon", false, 450, Dish.Type.FISH));
+//    a. Is there any Vegetarian meal available ( return type boolean)
+	public static boolean findVegetarianMeal() {
+		return menu.stream().anyMatch(x -> x.isVegetarian());
+	}
+//    b. Is there any healthy menu have calories less than 1000 ( return type boolean)
+	public static boolean findLessThan1000() {
+		return menu.stream().anyMatch(x -> x.getCalories() < 1000);
+	}
+//    c. Is there any unhealthy menu have calories greater than 1000 ( return type boolean)
+	public static boolean findMoreThan1000() {
+		return menu.stream().anyMatch(x -> x.getCalories() >= 1000);
+	}
+//    d. find and return the first item for the type of MEAT( return type Optional<Dish>)
+	public static Optional<Dish> findMeatMeal() {
+		return menu.stream().filter(x -> x.getType() == Dish.Type.MEAT).findFirst();
+	}
+//    e. calculateTotalCalories() in the menu using reduce. (return int)
+	public static int calculateTotalCalories() {
+		return menu.stream().map(x -> x.getCalories())
+				.reduce((x, y) -> x+y).get();
+	}
+//    f. calculateTotalCaloriesMethodReference()in the menu using MethodReferences. (return int)
+	public static int calculateTotalCaloriesMethodReference() {
+		return menu.stream().map(Dish::getCalories)
+				.reduce(Integer::sum).get();
+	}
+//    e. Implement a main method to test.
+	
+	public static void main(String[] args) {
+
+	    System.out.println("a. Is there any Vegetarian meal available ( return type boolean): "
+	    + findVegetarianMeal());
+		System.out.println("b. Is there any healthy menu have calories less than 1000 ( return type boolean): "
+				+ findLessThan1000());
+		System.out.println("c. Is there any unhealthy menu have calories greater than 1000 ( return type boolean): "
+				+ findMoreThan1000());
+		System.out.println("d. find and return the first item for the type of MEAT( return type Optional<Dish>): "
+				+ findMeatMeal().get());
+		System.out.println("e. calculateTotalCalories() in the menu using reduce. (return int): "
+				+ calculateTotalCalories());
+		System.out
+				.println("f. calculateTotalCaloriesMethodReference()in the menu using MethodReferences. (return int): "
+						+ calculateTotalCaloriesMethodReference());
+	}
 }

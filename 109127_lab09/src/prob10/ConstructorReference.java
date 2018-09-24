@@ -1,11 +1,11 @@
 package prob10;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
+import java.util.function.BiFunction;
 import java.util.function.Function;
-import java.util.function.Supplier;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import prob7b.TriFunction;
 
 class Human
 {
@@ -52,19 +52,30 @@ class Human
 
 public class ConstructorReference {
 public static void main(String args[]){
-	Human[] list = { new Human("Joe",35,"Male"), new Human("Jane",45,"Female"), new Human("John",30,"Male")};
+	Human[] list = { new Human("Joe",35,"feMale"), new Human("Jane",45,"Female"), new Human("John",30,"Male")};
 	
     // Query 1  : Print only Female canditates names
-	
+	System.out.println("Query 1  : Print only Female canditates names");
+	System.out.println(Stream.of(list).filter(x -> "Female".equalsIgnoreCase(x.getGender()))
+			.map(x -> x.getName())
+			.collect(Collectors.toList()));
+	System.out.println("");
 
-    // Query 2 : Cretae an objecy by choosing suitable Interface to the specified constructors(Totally 3 constuctors)using fouth type of Method Reference ClassName::new. Then print the object status 
+    // Query 2 : Cretae an objecy by choosing suitable Interface to the specified constructors
+	//(Totally 3 constuctors)using fouth type of Method Reference ClassName::new. 
+	//Then print the object status 
+	System.out.println("Query 2: Using fouth type of Method Reference ClassName::new.");
+	Function<String, Human> f1 = Human::new;
+	BiFunction<String, Integer, Human> f2 = Human::new;
+	TriFunction<String, Integer, String, Human> f3 = Human::new;
+	System.out.println("Constructor 1: " + f1.apply("Alex"));
+	System.out.println("Constructor 2: " + f2.apply("Alex", 30));
+	System.out.println("Constructor 3: " + f3.apply("Alex", 30, "Male"));
+	System.out.println("");
  
 	// Query 3 : Count the male candidates whose age is more than 30
-    
-    
-    
+	System.out.println("Query 3 : Count the male candidates whose age is more than 30: " +
+			Stream.of(list)
+	.filter(x -> "Male".equalsIgnoreCase(x.getGender()) && x.getAge() > 30).count());
    }
-
-
-
 }
